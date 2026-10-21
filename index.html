@@ -1,0 +1,425 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>ENCLAVE® — Gestion client confidentielle</title>
+  <meta name="description" content="ENCLAVE est un système de gestion client chiffré de bout en bout. Une fiche par client, un avertissement de confidentialité, une clé personnelle et un journal de chaque accès.">
+  <meta name="author" content="Ebubekir ARTI">
+  <meta name="theme-color" content="#0B0A09">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="ENCLAVE® — Vos clients. Sous scellé.">
+  <meta property="og:description" content="Système de gestion client confidentiel, chiffré et tracé. Projet de Ebubekir ARTI.">
+  <meta name="twitter:card" content="summary">
+  <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@300..700&family=Geist+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&display=swap">
+  <link rel="stylesheet" href="assets/css/base.css?v=13">
+  <link rel="stylesheet" href="assets/css/site.css?v=13">
+</head>
+<body class="site is-loading">
+
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <symbol id="mark" viewBox="0 0 32 32"><circle cx="16" cy="16" r="13" fill="none" stroke="currentColor" stroke-width="2.6"/><circle cx="16" cy="16" r="5" fill="currentColor"/><path d="M16 3v8" stroke="currentColor" stroke-width="2.6"/></symbol>
+    <symbol id="lock" viewBox="0 0 24 24"><rect x="4" y="11" width="16" height="10" rx="2.5" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M8 11V7.5a4 4 0 0 1 8 0V11" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><circle cx="12" cy="16" r="1.4" fill="currentColor"/></symbol>
+    <symbol id="arrow" viewBox="0 0 24 24"><path d="M7 17 17 7M8 7h9v9" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="star" viewBox="0 0 24 24"><path d="M12 2v20M2 12h20M4.9 4.9l14.2 14.2M19.1 4.9 4.9 19.1" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></symbol>
+  </svg>
+
+  <div class="grain" aria-hidden="true"></div>
+
+  <div class="cursor" aria-hidden="true">
+    <div class="cursor__ring"><span class="cursor__label"></span></div>
+    <div class="cursor__dot"></div>
+  </div>
+
+  <!-- Préchargement -->
+  <div class="loader" aria-hidden="true">
+    <div class="loader__head mono">
+      <span>ENCLAVE®</span>
+      <span>Canal sécurisé</span>
+    </div>
+    <div class="loader__center">
+      <svg class="loader__mark"><use href="#mark"/></svg>
+      <div class="loader__count"><span class="loader__num">000</span><span class="loader__pct">%</span></div>
+    </div>
+    <div class="loader__foot">
+      <ul class="loader__log mono">
+        <li>› Négociation du canal</li>
+        <li>› Dérivation des clés</li>
+        <li>› Chargement du moteur</li>
+        <li>› Prêt</li>
+      </ul>
+      <div class="loader__bar"><i></i></div>
+    </div>
+  </div>
+
+  <!-- Navigation -->
+  <header class="nav" data-nav>
+    <a class="nav__logo" href="#top" aria-label="ENCLAVE — accueil" data-cursor="Haut">
+      <svg class="nav__mark"><use href="#mark"/></svg>
+      <span>ENCLAVE<sup>®</sup></span>
+    </a>
+    <nav class="nav__links" aria-label="Navigation principale">
+      <a href="#plateforme">Plateforme</a>
+      <a href="#protocole">Protocole</a>
+      <a href="#apercu">Aperçu</a>
+      <a href="#acces">Accès</a>
+    </nav>
+    <div class="nav__right">
+      <span class="nav__status mono"><i></i>Canal chiffré</span>
+      <a class="btn btn--lime btn--sm" href="app.html" data-magnetic>
+        <svg class="btn__icon"><use href="#lock"/></svg>
+        <span class="roll"><span data-text="Ouvrir le coffre">Ouvrir le coffre</span></span>
+      </a>
+      <button class="nav__burger" type="button" aria-label="Ouvrir le menu" aria-expanded="false" data-burger><span></span><span></span></button>
+    </div>
+  </header>
+
+  <div class="menu" data-menu aria-hidden="true">
+    <nav class="menu__links" aria-label="Menu mobile">
+      <a href="#plateforme"><span class="mono">01</span>Plateforme</a>
+      <a href="#protocole"><span class="mono">02</span>Protocole</a>
+      <a href="#apercu"><span class="mono">03</span>Aperçu</a>
+      <a href="#acces"><span class="mono">04</span>Accès</a>
+    </nav>
+    <a class="btn btn--lime btn--block" href="app.html"><svg class="btn__icon"><use href="#lock"/></svg>Ouvrir le coffre</a>
+    <p class="menu__note mono">Projet portfolio — données fictives</p>
+  </div>
+
+  <main id="top">
+
+    <!-- HERO -->
+    <section class="hero" data-hero>
+      <canvas class="hero__gl" data-gl aria-hidden="true"></canvas>
+      <div class="hero__fallback" aria-hidden="true"></div>
+
+      <div class="hero__inner">
+        <p class="eyebrow mono" data-fade>
+          <span class="dot"></span>Système de gestion client — accès restreint
+        </p>
+        <h1 class="hero__title" aria-label="Vos clients. Sous scellé.">
+          <span class="line" aria-hidden="true"><span>Vos clients.</span></span>
+          <span class="line" aria-hidden="true"><span>Sous <em>scellé.</em></span></span>
+        </h1>
+        <div class="hero__bottom">
+          <p class="hero__lead" data-fade>
+            ENCLAVE réunit toutes les informations de vos clients dans un coffre chiffré.
+            Seule la personne qui détient la clé peut le consulter, et chaque accès est enregistré.
+          </p>
+          <div class="hero__ctas" data-fade>
+            <a class="btn btn--lime" href="app.html" data-magnetic data-cursor="Entrer">
+              <svg class="btn__icon"><use href="#lock"/></svg>
+              <span class="roll"><span data-text="Ouvrir le coffre">Ouvrir le coffre</span></span>
+            </a>
+            <a class="btn btn--ghost" href="#plateforme" data-magnetic>
+              <span class="roll"><span data-text="Découvrir">Découvrir</span></span>
+              <svg class="btn__icon btn__icon--down"><use href="#arrow"/></svg>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <dl class="hero__meta" data-fade>
+        <div><dt class="mono">Chiffrement</dt><dd>AES-256-GCM</dd></div>
+        <div><dt class="mono">Dérivation</dt><dd>PBKDF2 · 310 000</dd></div>
+        <div><dt class="mono">Accès</dt><dd>Clé personnelle</dd></div>
+        <div class="hero__scroll"><dt class="mono">Défiler</dt><dd><span class="scroll-line"></span></dd></div>
+      </dl>
+    </section>
+
+    <!-- BANDES CONFIDENTIEL -->
+    <section class="tapes" aria-label="Confidentiel — accès restreint">
+      <div class="tape tape--violet" aria-hidden="true">
+        <div class="tape__track">
+          <span>Ne pas divulguer</span><svg><use href="#star"/></svg><span>Accès restreint</span><svg><use href="#star"/></svg><span>Ne pas divulguer</span><svg><use href="#star"/></svg><span>Accès restreint</span><svg><use href="#star"/></svg>
+          <span>Ne pas divulguer</span><svg><use href="#star"/></svg><span>Accès restreint</span><svg><use href="#star"/></svg><span>Ne pas divulguer</span><svg><use href="#star"/></svg><span>Accès restreint</span><svg><use href="#star"/></svg>
+        </div>
+      </div>
+      <div class="tape tape--lime" aria-hidden="true">
+        <div class="tape__track">
+          <span>Confidentiel</span><svg><use href="#lock"/></svg><span>Strictement privé</span><svg><use href="#lock"/></svg><span>Confidentiel</span><svg><use href="#lock"/></svg><span>Strictement privé</span><svg><use href="#lock"/></svg>
+          <span>Confidentiel</span><svg><use href="#lock"/></svg><span>Strictement privé</span><svg><use href="#lock"/></svg><span>Confidentiel</span><svg><use href="#lock"/></svg><span>Strictement privé</span><svg><use href="#lock"/></svg>
+        </div>
+      </div>
+    </section>
+
+    <!-- MANIFESTE -->
+    <section class="manifesto section">
+      <div class="section__head">
+        <span class="label mono">(01)</span>
+        <span class="label mono">Manifeste</span>
+      </div>
+      <p class="manifesto__text" data-words>
+        Une donnée client n'est pas une simple information. C'est une <em>promesse</em> faite à quelqu'un.
+        ENCLAVE la garde sous clé, trace chaque lecture et la rend <em>illisible</em> à quiconque n'y est pas invité.
+      </p>
+      <div class="manifesto__sign">
+        <span class="mono">Principe n°1</span>
+        <span>Ce qui entre dans le coffre y reste.</span>
+      </div>
+    </section>
+
+    <!-- PLATEFORME (défilement horizontal) -->
+    <section class="pillars" id="plateforme" data-pillars>
+      <div class="pillars__track" data-track>
+
+        <div class="pillars__intro">
+          <div class="section__head">
+            <span class="label mono">(02)</span>
+            <span class="label mono">La plateforme</span>
+          </div>
+          <h2 class="h2" data-split>Quatre gestes.<br><em>Aucun compromis.</em></h2>
+          <p class="pillars__lead">Tout ce qu'il faut pour gérer une relation client exigeante, et rien qui puisse la compromettre.</p>
+          <div class="pillars__progress" aria-hidden="true"><i data-progress></i></div>
+        </div>
+
+        <article class="pcard">
+          <header class="pcard__top"><span class="mono">01 / 04</span><span class="tag mono">Centraliser</span></header>
+          <div class="pcard__viz viz-stack" aria-hidden="true">
+            <div class="mini"><i class="mini__av"></i><b></b><b></b><b></b></div>
+            <div class="mini"><i class="mini__av"></i><b></b><b></b><b></b></div>
+            <div class="mini"><i class="mini__av"></i><b></b><b></b><b></b></div>
+          </div>
+          <div class="pcard__body">
+            <h3>Une fiche,<br>tout le client.</h3>
+            <p>Identité, coordonnées, entreprise, finances, documents, historique : chaque client tient sur une seule fiche, toujours à jour.</p>
+          </div>
+        </article>
+
+        <article class="pcard">
+          <header class="pcard__top"><span class="mono">02 / 04</span><span class="tag mono">Chiffrer</span></header>
+          <div class="pcard__viz viz-cipher" aria-hidden="true">
+            <pre class="mono" data-cipher></pre>
+            <span class="viz-cipher__lock"><svg><use href="#lock"/></svg></span>
+          </div>
+          <div class="pcard__body">
+            <h3>Illisible<br>sans la clé.</h3>
+            <p>Les fiches sont scellées en AES-256 avant d'être enregistrées. Sans la clé, il ne reste qu'une suite de caractères sans aucun sens.</p>
+          </div>
+        </article>
+
+        <article class="pcard">
+          <header class="pcard__top"><span class="mono">03 / 04</span><span class="tag mono">Restreindre</span></header>
+          <div class="pcard__viz viz-pin" aria-hidden="true">
+            <div class="viz-pin__dots"><i></i><i></i><i></i><i></i><i></i><i></i></div>
+            <div class="viz-pin__pad"><b>1</b><b>2</b><b>3</b><b>4</b><b>5</b><b>6</b><b>7</b><b>8</b><b>9</b></div>
+          </div>
+          <div class="pcard__body">
+            <h3>Une clé.<br>Une personne.</h3>
+            <p>Avant d'entrer, on accepte un engagement de confidentialité puis on saisit sa clé personnelle. Personne d'autre ne peut ouvrir le coffre.</p>
+          </div>
+        </article>
+
+        <article class="pcard">
+          <header class="pcard__top"><span class="mono">04 / 04</span><span class="tag mono">Tracer</span></header>
+          <div class="pcard__viz viz-log mono" aria-hidden="true">
+            <p><span>09:12</span><span>Connexion</span><span>E. Arti</span></p>
+            <p><span>09:14</span><span>Consultation</span><span>CL-0007</span></p>
+            <p><span>09:15</span><span>Révélation</span><span>IBAN</span></p>
+            <p><span>09:21</span><span>Modification</span><span>CL-0012</span></p>
+            <p><span>09:26</span><span>Verrouillage</span><span>Auto</span></p>
+          </div>
+          <div class="pcard__body">
+            <h3>Chaque lecture<br>laisse une trace.</h3>
+            <p>Consultations, révélations, modifications : tout est horodaté dans un journal chaîné. Si une ligne est modifiée, la chaîne le montre.</p>
+          </div>
+        </article>
+
+      </div>
+    </section>
+
+    <!-- PROTOCOLE -->
+    <section class="protocol section" id="protocole">
+      <div class="protocol__grid">
+        <div class="protocol__aside">
+          <div class="section__head">
+            <span class="label mono">(03)</span>
+            <span class="label mono">Le protocole</span>
+          </div>
+          <h2 class="h2" data-split>Entrer, c'est accepter <em>les règles.</em></h2>
+
+          <div class="term" data-term>
+            <div class="term__bar"><i></i><i></i><i></i><span class="mono">enclave — session</span></div>
+            <pre class="term__body mono" data-term-body></pre>
+          </div>
+        </div>
+
+        <ol class="protocol__list">
+          <li class="prow" data-cursor="Lire">
+            <span class="prow__num mono">01</span>
+            <div class="prow__text">
+              <h3>Avertissement</h3>
+              <p>Avant tout accès, l'utilisateur reconnaît que les données sont strictement confidentielles et s'engage à ne rien divulguer.</p>
+            </div>
+            <svg class="prow__arrow"><use href="#arrow"/></svg>
+          </li>
+          <li class="prow" data-cursor="Lire">
+            <span class="prow__num mono">02</span>
+            <div class="prow__text">
+              <h3>Clé personnelle</h3>
+              <p>Le code n'est jamais enregistré. Il sert uniquement à produire la clé qui déchiffre le coffre, directement sur l'appareil.</p>
+            </div>
+            <svg class="prow__arrow"><use href="#arrow"/></svg>
+          </li>
+          <li class="prow" data-cursor="Lire">
+            <span class="prow__num mono">03</span>
+            <div class="prow__text">
+              <h3>Consultation tracée</h3>
+              <p>Les champs sensibles restent masqués. Les afficher ou les copier est une action volontaire, et elle est inscrite au journal.</p>
+            </div>
+            <svg class="prow__arrow"><use href="#arrow"/></svg>
+          </li>
+          <li class="prow" data-cursor="Lire">
+            <span class="prow__num mono">04</span>
+            <div class="prow__text">
+              <h3>Verrouillage automatique</h3>
+              <p>Dès qu'on change d'onglet, l'écran se voile. Après une période d'inactivité, le coffre se referme tout seul.</p>
+            </div>
+            <svg class="prow__arrow"><use href="#arrow"/></svg>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- CHIFFRES -->
+    <section class="numbers section" aria-label="ENCLAVE en chiffres">
+      <div class="numbers__grid">
+        <div class="stat"><span class="stat__num" data-count="256">0</span><span class="stat__unit">bits</span><p>Taille de la clé de chiffrement AES-GCM qui protège chaque coffre.</p></div>
+        <div class="stat"><span class="stat__num" data-count="310000" data-format="space">0</span><span class="stat__unit">itérations</span><p>De dérivation PBKDF2 pour rendre chaque essai de code coûteux.</p></div>
+        <div class="stat"><span class="stat__num" data-count="0">0</span><span class="stat__unit">octet</span><p>De donnée client enregistré en clair sur l'appareil ou ailleurs.</p></div>
+        <div class="stat"><span class="stat__num" data-count="100">0</span><span class="stat__unit">%</span><p>Des consultations, révélations et modifications inscrites au journal.</p></div>
+      </div>
+    </section>
+
+    <!-- APERÇU : avec / sans la clé -->
+    <section class="glimpse section" id="apercu">
+      <div class="glimpse__head">
+        <div class="section__head">
+          <span class="label mono">(04)</span>
+          <span class="label mono">Aperçu</span>
+        </div>
+        <h2 class="h2" data-split>Ce que vous voyez. <em>Ce qu'ils verront.</em></h2>
+        <p class="glimpse__lead">La même fiche, avec et sans la clé. Faites glisser pour comparer.</p>
+      </div>
+
+      <div class="compare" data-compare style="--pos:50%">
+        <div class="compare__layer compare__layer--clear">
+          <div class="record">
+            <header class="record__head">
+              <span class="record__av">CM</span>
+              <div>
+                <p class="record__name">Camille Moreau</p>
+                <p class="record__role">Directrice financière — Maison Orsel</p>
+              </div>
+              <span class="record__badge">Secret</span>
+            </header>
+            <dl class="record__grid">
+              <div><dt>Client depuis</dt><dd>Mars 2021</dd></div>
+              <div><dt>Segment</dt><dd>Grand compte</dd></div>
+              <div><dt>Valeur annuelle</dt><dd>184 000 €</dd></div>
+              <div><dt>Téléphone</dt><dd>+33 6 41 27 90 18</dd></div>
+              <div><dt>IBAN</dt><dd class="mono">FR76 •••• •••• 4021</dd></div>
+              <div><dt>Dernier échange</dt><dd>Hier, 16:40</dd></div>
+            </dl>
+            <footer class="record__foot"><span class="dot dot--ok"></span>Déchiffré localement · consultation journalisée</footer>
+          </div>
+        </div>
+        <div class="compare__layer compare__layer--cipher" aria-hidden="true">
+          <div class="record record--cipher">
+            <header class="record__head">
+              <span class="record__av">#?</span>
+              <div>
+                <p class="record__name mono" data-scramble-loop>U2FsdGVkX1+q</p>
+                <p class="record__role mono" data-scramble-loop>9f3a0c77e1d2b8a46c0f…</p>
+              </div>
+              <span class="record__badge">••••</span>
+            </header>
+            <dl class="record__grid mono">
+              <div><dt>Ω‡·∆</dt><dd data-scramble-loop>x7Kp#2v</dd></div>
+              <div><dt>Ω‡·∆</dt><dd data-scramble-loop>Q0l&amp;m9Za</dd></div>
+              <div><dt>Ω‡·∆</dt><dd data-scramble-loop>4e9B·1f0</dd></div>
+              <div><dt>Ω‡·∆</dt><dd data-scramble-loop>+Zr 8 Λ3 0t</dd></div>
+              <div><dt>Ω‡·∆</dt><dd data-scramble-loop>aG7= Hq2· Lm0s</dd></div>
+              <div><dt>Ω‡·∆</dt><dd data-scramble-loop>v∆, 1Kc0</dd></div>
+            </dl>
+            <footer class="record__foot"><span class="dot dot--danger"></span>Chiffré · AES-256-GCM · aucune clé</footer>
+          </div>
+        </div>
+        <span class="compare__tag compare__tag--l mono">Avec la clé</span>
+        <span class="compare__tag compare__tag--r mono">Sans la clé</span>
+        <div class="compare__handle" role="slider" tabindex="0" aria-label="Comparer la fiche avec et sans la clé" aria-valuemin="0" aria-valuemax="100" aria-valuenow="50" data-handle>
+          <span class="compare__knob"><svg><use href="#lock"/></svg></span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ACCÈS -->
+    <section class="cta section" id="acces">
+      <div class="section__head">
+        <span class="label mono">(05)</span>
+        <span class="label mono">Accès</span>
+      </div>
+      <h2 class="cta__title">
+        <span class="line"><span>Entrez.</span></span>
+        <span class="line"><span><em>Si vous avez la clé.</em></span></span>
+      </h2>
+      <div class="cta__row">
+        <p class="cta__text">Le coffre de démonstration contient des clients fictifs. Pour l'ouvrir, lisez l'avertissement puis saisissez le code ci-dessous.</p>
+        <a class="seal" href="app.html" aria-label="Ouvrir le coffre" data-cursor="Ouvrir">
+          <svg class="seal__ring" viewBox="0 0 200 200" aria-hidden="true">
+            <defs><path id="circle" d="M100,100 m-78,0 a78,78 0 1,1 156,0 a78,78 0 1,1 -156,0"/></defs>
+            <text><textPath href="#circle">OUVRIR LE COFFRE • ACCÈS RESTREINT • CONFIDENTIEL • </textPath></text>
+          </svg>
+          <span class="seal__core"><svg><use href="#lock"/></svg></span>
+        </a>
+        <div class="cta__code">
+          <span class="mono">Code de démonstration</span>
+          <strong class="mono">240 617</strong>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="footer" data-footer>
+    <div class="footer__inner">
+      <div class="footer__top">
+        <div class="footer__col">
+          <span class="label mono">Navigation</span>
+          <a href="#plateforme">Plateforme</a>
+          <a href="#protocole">Protocole</a>
+          <a href="#apercu">Aperçu</a>
+          <a href="app.html">Application</a>
+        </div>
+        <div class="footer__col">
+          <span class="label mono">Le projet</span>
+          <p>ENCLAVE est un projet de portfolio : un site et une application de gestion client confidentielle. Toutes les données sont fictives.</p>
+        </div>
+        <div class="footer__col">
+          <span class="label mono">Conception</span>
+          <p>Direction artistique,<br>design &amp; développement<br><strong>Ebubekir ARTI</strong></p>
+        </div>
+        <div class="footer__col">
+          <span class="label mono">Paris</span>
+          <p class="footer__clock mono" data-clock>--:--:--</p>
+          <p class="footer__status"><span class="dot dot--ok"></span>Tous les systèmes opérationnels</p>
+        </div>
+      </div>
+      <div class="footer__word" aria-hidden="true">ENCLAVE<sup>®</sup></div>
+      <div class="footer__bottom mono">
+        <span>© 2026 ENCLAVE® — Ebubekir ARTI</span>
+        <span>Projet de démonstration</span>
+        <a href="#top" data-top>Retour en haut ↑</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
+  <script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js" defer></script>
+  <script src="assets/js/gl.js?v=13" defer></script>
+  <script src="assets/js/site.js?v=13" defer></script>
+</body>
+</html>
